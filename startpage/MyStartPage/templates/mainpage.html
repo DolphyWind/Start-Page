@@ -11,13 +11,14 @@
         <title>Startpage</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'js/node_modules/weather-underground-icons/dist/wu-icons-style.css' %}">
     </head>
-    <body>
-        <div class='test_class'>
-            
-        </div>
-        
-        <h1>Hello, {{ name }}!</h1>
+    <body bgcolor='#262A33'>
+        <div class='top_div'></div>
+        <i class="wu wu-32 wu-white {{ dn_class }} {{ weather_class }}"></i>
+        <h1>Good {{ part_of_day }}, {{ name }}!</h1>
+        <p>Temperature: {{ temperature }}</p>
+        <p>Date: {{ dt_str }}</p>
     </body>
 </html>
