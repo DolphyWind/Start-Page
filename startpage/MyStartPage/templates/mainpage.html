@@ -12,13 +12,21 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/icons.css' %}">
         <link rel="stylesheet" href="{% static 'js/node_modules/weather-underground-icons/dist/wu-icons-style.css' %}">
     </head>
     <body bgcolor='#262A33'>
-        <div class='top_div'></div>
-        <i class="wu wu-32 wu-white {{ dn_class }} {{ weather_class }}"></i>
-        <h1>Good {{ part_of_day }}, {{ name }}!</h1>
-        <p>Temperature: {{ temperature }}</p>
-        <p>Date: {{ dt_str }}</p>
+        <div class='top_div hcentered'>
+            <br>
+            <div class="title_text">Good {{ part_of_day }}, {{ name }}!</div>
+            <br>
+
+            <div class="wu wu-64 wu-white {{ dn_class }} {{ weather_class }}"></div>
+            <div class="data_text">{{ temperature }} °C</div>
+            <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="icon-class box64 calendar-white-64 inline_block"></div>
+            <div class="data_text">{{ dt_str }}</div>
+            <br>
+        </div>
     </body>
 </html>

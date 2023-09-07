@@ -12,7 +12,7 @@ def get_weather_stats():
     g = geocoder.ip('me')
     lat, lon = g.latlng
     
-    # Get sunset and sunrise times to determent 
+    # Get sunset and sunrise times
     url_sunset_sunrise = f'https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&formatted=0'
     try:
         req = requests.get(url_sunset_sunrise)
