@@ -94,6 +94,7 @@ def load_page(request):
     context_data['dn_class'] = dn_class
     context_data['temperature'] = temperature
     context_data['weather_class'] = weather_class
+    context_data['search_url'] = "https://www.google.com/search?q=%s"
     
     dt_str, part_of_day = get_dt()
     context_data['dt_str'] = dt_str

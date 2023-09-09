@@ -14,6 +14,17 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/icons.css' %}">
         <link rel="stylesheet" href="{% static 'js/node_modules/weather-underground-icons/dist/wu-icons-style.css' %}">
+        <script>
+            function search(elem) {
+                if(event.key === 'Enter') {
+                    let query = elem.value.trim().replace(" ", "+");
+                    if(query === '') return;
+                    let url = "{{ search_url }}".replace("%s", query);
+
+                    window.location.href = url;
+                }
+            }
+        </script>
     </head>
     <body bgcolor='#262A33'>
         <div class='top_div hcentered'>
@@ -25,8 +36,10 @@
             <div class="data_text">{{ temperature }} °C</div>
             <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div class="icon-class box64 calendar-white-64 inline_block"></div>
-            <div class="data_text">{{ dt_str }}</div>
-            <br>
+            <div class="data_text">&nbsp;&nbsp;{{ dt_str }}</div>
+            <br><br>
+
+            <input type="text", class="input_box" placeholder="Search with google!" onkeypress="search(this)">
         </div>
     </body>
 </html>
