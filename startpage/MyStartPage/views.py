@@ -6,6 +6,8 @@ import getpass
 import geocoder
 import requests
 import datetime
+import json
+from .SettingsManager import SettingsManager
 
 # Create your views here.
 def get_weather_stats():
@@ -87,8 +89,14 @@ def get_dt():
     return dt_str, part_of_day
 
 def load_page(request):
+    settings_filename = "settings.json"
+    default_settings = {
+        "name": getpass.getuser(),
+    }
+    settings_manager = SettingsManager(settings_filename, default_settings)
+
     context_data = dict()
-    context_data['name'] = getpass.getuser()
+    context_data['name'] = settings_manager["name"]
     
     dn_class, temperature, weather_class = get_weather_stats()
     context_data['dn_class'] = dn_class
