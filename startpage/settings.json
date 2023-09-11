@@ -1,1 +1,1 @@
-{"name": "yunus"}
+{"name": "yunus", "default_search_engine": "google", "search_engines": {"google": "https://www.google.com/search?q=%s", "duckduckgo": "https://duckduckgo.com/?t=ffab&q=%s", "startpage": "https://www.startpage.com/do/dsearch?query=%s"}}

@@ -32,14 +32,14 @@
             <div class="title_text">Good {{ part_of_day }}, {{ name }}!</div>
             <br>
 
-            <div class="wu wu-64 wu-white {{ dn_class }} {{ weather_class }}"></div>
+            <div class="wu wu-64 wu-white {{ day_night_classname }} {{ weather_classname }}"></div>
             <div class="data_text">{{ temperature }} °C</div>
             <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div class="icon-class box64 calendar-white-64 inline_block"></div>
-            <div class="data_text">{{ dt_str }}</div>
+            <div class="data_text">{{ datetime_string }}</div>
             <br><br>
 
-            <input type="text", class="input_box" placeholder="Search with google!" onkeypress="search(this)">
+            <input type="text" class="input_box" placeholder="Search with {{ search_engine_name }}!" onkeypress="search(this)">
         </div>
     </body>
 </html>

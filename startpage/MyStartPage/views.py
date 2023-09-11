@@ -3,109 +3,52 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 import getpass
-import geocoder
-import requests
-import datetime
-import json
 from .SettingsManager import SettingsManager
-
-# Create your views here.
-def get_weather_stats():
-    g = geocoder.ip('me')
-    lat, lon = g.latlng
-    
-    # Get sunset and sunrise times
-    url_sunset_sunrise = f'https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&formatted=0'
-    try:
-        req = requests.get(url_sunset_sunrise)
-    except:
-        pass
-    
-    isday = True
-    if req.status_code == 200:
-        data = req.json()
-        if data['status'] == 'OK':
-            data = data['results']
-            
-            sunrise = data['sunrise'].rsplit('+', 1)[0]
-            sunset = data['sunset'].rsplit('+', 1)[0]
-            
-            sunrise = datetime.datetime.strptime(sunrise, '%Y-%m-%dT%H:%M:%S')
-            sunset = datetime.datetime.strptime(sunset, '%Y-%m-%dT%H:%M:%S')
-            
-            utc_now = datetime.datetime.utcnow()
-            if utc_now >= sunrise and utc_now <= sunset:
-                isday = True
-            else:
-                isday = False
-    
-    dn_class = 'wu-day' if isday else 'wu-night'
-    
-    url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
-    try:
-        req = requests.get(url)
-    except:
-        pass
-    if req.status_code == 200:
-        data = req.json()
-        temperature = data['current_weather']['temperature']
-        weather_code = data['current_weather']['weathercode']
-        weather_class = 'wu-unknown'
-        
-        if weather_code in (0, 1):
-            weather_class = 'wu-clear'
-        elif weather_code == 2:
-            weather_class = 'wu-partlycloudy'
-        elif weather_code == 3:
-            weather_class = 'wu-cloudy'
-        elif weather_code in (45, 48):
-            weather_class = 'wu-fog'
-        elif weather_code in (51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82):
-            weather_class = 'wu-rain'
-        elif weather_code in (71, 73, 75, 77, 85, 86):
-            weather_class = 'wu-snow'
-        elif weather_code in (95, 96, 99):
-            weather_class = 'wu-tstorms'
-        
-        return dn_class, temperature, weather_class
-    else:
-        return None
-
-def get_dt():
-    dt = datetime.datetime.now()
-    hour = dt.hour
-    part_of_day = None
-    dt_str = dt.strftime('%d/%m/%Y')
-
-    if hour >= 5 and hour < 12:
-        part_of_day = 'Morning'
-    elif hour >= 12 and hour < 17:
-        part_of_day = 'Afternoon'
-    elif hour >= 17 and hour < 21:
-        part_of_day = 'Evening'
-    else:
-        part_of_day = 'Night'
-    
-    return dt_str, part_of_day
+from .DatetimeManager import DatetimeManager
+from .WeatherManager import WeatherManager
 
 def load_page(request):
     settings_filename = "settings.json"
     default_settings = {
         "name": getpass.getuser(),
+        "search_engines": {
+            "Google": "https://www.google.com/search?q=%s",
+            "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s",
+            "StartPage": "https://www.startpage.com/do/dsearch?query=%s",
+        },
+        "default_search_engine": "google"
     }
-    settings_manager = SettingsManager(settings_filename, default_settings)
 
+    settings_manager = SettingsManager(settings_filename, default_settings)
+    datetime_manager = DatetimeManager()
+    weather_manager = WeatherManager()
+
+    # Settings
+    username = settings_manager["name"]
+    search_engine_name = settings_manager["default_search_engine"]
+    search_url = settings_manager["search_engines"][search_engine_name]
+
+    # Datetime data
+    datetime_string = datetime_manager.get_datetime_string()
+    part_of_the_day = datetime_manager.get_part_of_the_day()
+
+    # Weather data
+    day_night_classname = weather_manager.day_night_classname
+    temperature = weather_manager.temperature
+    weather_classname = weather_manager.weather_classname
+
+    # CONTEXT DATA SETUP
     context_data = dict()
-    context_data['name'] = settings_manager["name"]
-    
-    dn_class, temperature, weather_class = get_weather_stats()
-    context_data['dn_class'] = dn_class
+    context_data['name'] = username
+    context_data["search_engine_name"] = search_engine_name
+    context_data['search_url'] = search_url
+
+    context_data['datetime_string'] = datetime_string
+    context_data['part_of_day'] = part_of_the_day
+
+    context_data['day_night_classname'] = day_night_classname
     context_data['temperature'] = temperature
-    context_data['weather_class'] = weather_class
-    context_data['search_url'] = "https://www.google.com/search?q=%s"
-    
-    dt_str, part_of_day = get_dt()
-    context_data['dt_str'] = dt_str
-    context_data['part_of_day'] = part_of_day
-    
+    context_data['weather_classname'] = weather_classname
+
+    settings_manager.save_settings()  # Temporary
     return render(request, 'mainpage.html', context_data)

@@ -17,8 +17,13 @@ class SettingsManager:
             self.save_settings()
 
     def save_settings(self) -> None:
+        for key in self.__default_settings.keys():
+            if key not in self.__settings.keys():
+                self.__settings[key] = self.__default_settings[key]
+
         with open(self.filename, "w") as f:
             json.dump(self.__settings, f)
+
     def get_setting(self, settingName: str):
         if settingName in self.__settings:
             return self.__settings[settingName]
