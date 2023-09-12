@@ -17,7 +17,7 @@
     height: 72px;
     font-size: 72px;
     font-weight: bold;
-    line-height: 0.9;
+    line-height: 1;
     font-family: "Helvetica";
 }
 
@@ -25,7 +25,7 @@
     display: inline-block;
     color: #F5F5F5;
     height: 64px;
-    font-size: 16px;
+    font-size: 20px;
     vertical-align: top;
     font-family: "Helvetica";
     line-height: 64px;

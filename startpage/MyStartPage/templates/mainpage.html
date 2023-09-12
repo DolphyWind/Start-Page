@@ -15,15 +15,36 @@
         <link rel="stylesheet" href="{% static 'css/icons.css' %}">
         <link rel="stylesheet" href="{% static 'js/node_modules/weather-underground-icons/dist/wu-icons-style.css' %}">
         <script>
+            function save_settings() {
+                fetch('/save_settings/');
+            }
+
             function search(elem) {
                 if(event.key === 'Enter') {
                     let query = elem.value.trim().replace(" ", "+");
                     if(query === '') return;
                     let url = "{{ search_url }}".replace("%s", query);
 
-                    window.location.href = url;
+                    fetch('/save_settings/').then(response => {
+                        window.location.href = url;
+                    });
                 }
             }
+
+            function updateClock() {
+              const now = new Date();
+              const hours = now.getHours().toString().padStart(2, '0');
+              const minutes = now.getMinutes().toString().padStart(2, '0');
+              const seconds = now.getSeconds().toString().padStart(2, '0');
+              const timeString = `${hours}:${minutes}:${seconds}`;
+
+              document.getElementById('clock').innerHTML = timeString;
+            }
+
+            window.onbeforeunload = save_settings;
+
+            setInterval(updateClock, 250);
+            updateClock();
         </script>
     </head>
     <body bgcolor='#262A33'>
@@ -34,6 +55,9 @@
 
             <div class="wu wu-64 wu-white {{ day_night_classname }} {{ weather_classname }}"></div>
             <div class="data_text">{{ temperature }} °C</div>
+            <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="icon-class box64 clock-white-64 inline_block"></div>
+            <div class="data_text" id="clock">{{ clock_initial }}</div>
             <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div class="icon-class box64 calendar-white-64 inline_block"></div>
             <div class="data_text">{{ datetime_string }}</div>

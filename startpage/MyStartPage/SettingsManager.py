@@ -49,3 +49,11 @@ class SettingsManager:
 
     def __setitem__(self, key, value):
         return self.set_setting(key, value)
+
+    @property
+    def settings(self):
+        return self.__settings
+
+    @property
+    def default_settings(self):
+        return self.__default_settings

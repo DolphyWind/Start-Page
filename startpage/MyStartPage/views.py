@@ -2,26 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-import getpass
-from .SettingsManager import SettingsManager
-from .DatetimeManager import DatetimeManager
-from .WeatherManager import WeatherManager
+from .Globals import globals
+
+# Called automatically when user leaves the website
+def save_settings(request):
+    globals.settings_manager.save_settings()
+    return HttpResponse(200, "Save Successfull!")
 
 def load_page(request):
-    settings_filename = "settings.json"
-    default_settings = {
-        "name": getpass.getuser(),
-        "search_engines": {
-            "Google": "https://www.google.com/search?q=%s",
-            "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s",
-            "StartPage": "https://www.startpage.com/do/dsearch?query=%s",
-        },
-        "default_search_engine": "google"
-    }
-
-    settings_manager = SettingsManager(settings_filename, default_settings)
-    datetime_manager = DatetimeManager()
-    weather_manager = WeatherManager()
+    settings_manager = globals.settings_manager
+    datetime_manager = globals.datetime_manager
+    weather_manager = globals.weather_manager
 
     # Settings
     username = settings_manager["name"]
@@ -29,8 +20,9 @@ def load_page(request):
     search_url = settings_manager["search_engines"][search_engine_name]
 
     # Datetime data
-    datetime_string = datetime_manager.get_datetime_string()
-    part_of_the_day = datetime_manager.get_part_of_the_day()
+    datetime_string = datetime_manager.datetime_string
+    part_of_the_day = datetime_manager.part_of_the_day
+    clock_initial = datetime_manager.clock_initial
 
     # Weather data
     day_night_classname = weather_manager.day_night_classname
@@ -45,10 +37,10 @@ def load_page(request):
 
     context_data['datetime_string'] = datetime_string
     context_data['part_of_day'] = part_of_the_day
+    context_data['clock_initial'] = clock_initial
 
     context_data['day_night_classname'] = day_night_classname
     context_data['temperature'] = temperature
     context_data['weather_classname'] = weather_classname
 
-    settings_manager.save_settings()  # Temporary
     return render(request, 'mainpage.html', context_data)

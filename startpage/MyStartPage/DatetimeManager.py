@@ -5,10 +5,14 @@ class DatetimeManager:
     def __init__(self):
         self.datetime = datetime.datetime.now()
 
-    def get_datetime_string(self) -> str:
+    @property
+    def datetime_string(self):
+        self.datetime = datetime.datetime.now()
         return self.datetime.strftime('%d/%m/%Y')
 
-    def get_part_of_the_day(self) -> str:
+    @property
+    def part_of_the_day(self) -> str:
+        self.datetime = datetime.datetime.now()
         current_hour = self.datetime.hour
 
         part_of_the_day = ""
@@ -22,3 +26,8 @@ class DatetimeManager:
             part_of_the_day = 'Night'
 
         return part_of_the_day
+
+    @property
+    def clock_initial(self) -> str:
+        return self.datetime.strftime('%H:%M:%S')
+

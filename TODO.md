@@ -1,6 +1,5 @@
 # TODO
 
-- Clock
 - Split websites into categories (Social media, education etc.)
 - Ability to add websites and categories
 - USD and EUR in TRY
