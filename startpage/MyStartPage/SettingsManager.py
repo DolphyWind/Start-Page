@@ -1,40 +1,31 @@
 import json
+from .SettingsPresenceManager import ISettingsPresenceManager
 
 class SettingsManager:
-    def __init__(self, filename: str, defaultSettings: dict):
-        self.filename: str = filename
+    def __init__(self, settings_presence_manager: ISettingsPresenceManager):
+        self.__settings_presence_manager = settings_presence_manager
         self.__settings: dict = {}
-        self.__default_settings: dict = defaultSettings
+        self.__default_settings: dict = settings_presence_manager.default_settings
 
         self.load_settings()
 
     def load_settings(self) -> None:
-        try:
-            with open(self.filename, "r") as file:
-                self.__settings = json.load(file)
-        except FileNotFoundError:
-            self.__settings = self.__default_settings
-            self.save_settings()
+        self.__settings = self.settings_presence_manager.load_settings()
 
     def save_settings(self) -> None:
-        for key in self.__default_settings.keys():
-            if key not in self.__settings.keys():
-                self.__settings[key] = self.__default_settings[key]
-
-        with open(self.filename, "w") as f:
-            json.dump(self.__settings, f)
+        self.settings_presence_manager.save_settings(self.settings)
 
     def get_setting(self, settingName: str):
-        if settingName in self.__settings:
-            return self.__settings[settingName]
+        if settingName in self.settings:
+            return self.settings[settingName]
 
-        self.__settings[settingName] = self.get_default_setting(settingName)
-        return self.__settings[settingName]
+        self.settings[settingName] = self.get_default_setting(settingName)
+        return self.settings[settingName]
 
     def get_default_setting(self, settingName: str):
         if not self.does_setting_exists(settingName):
             raise RuntimeError("Setting does not exists!")
-        return self.__default_settings[settingName]
+        return self.default_settings[settingName]
 
     def set_setting(self, settingName: str, value):
         if not self.does_setting_exists(settingName):
@@ -42,7 +33,7 @@ class SettingsManager:
         self.__settings[settingName] = value
 
     def does_setting_exists(self, settingName: str) -> bool:
-        return settingName in self.__default_settings
+        return settingName in self.default_settings
 
     def __getitem__(self, item):
         return self.get_setting(item)
@@ -51,9 +42,13 @@ class SettingsManager:
         return self.set_setting(key, value)
 
     @property
-    def settings(self):
+    def settings(self) -> dict:
         return self.__settings
 
     @property
-    def default_settings(self):
-        return self.__default_settings
+    def default_settings(self) -> dict:
+        return self.settings_presence_manager.default_settings
+
+    @property
+    def settings_presence_manager(self):
+        return self.__settings_presence_manager

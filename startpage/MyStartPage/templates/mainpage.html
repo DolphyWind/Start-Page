@@ -53,14 +53,16 @@
             <div class="title_text">Good {{ part_of_day }}, {{ name }}!</div>
             <br>
 
+            <div class="currency_text data_text">1$ = 999₺<br>1€ = 999₺</div>
+
             <div class="wu wu-64 wu-white {{ day_night_classname }} {{ weather_classname }}"></div>
-            <div class="data_text">{{ temperature }} °C</div>
+            <div class="data_text lh_64">{{ temperature }} °C</div>
             <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div class="icon-class box64 clock-white-64 inline_block"></div>
-            <div class="data_text" id="clock">{{ clock_initial }}</div>
+            <div class="data_text lh_64" id="clock">{{ clock_initial }}</div>
             <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div class="icon-class box64 calendar-white-64 inline_block"></div>
-            <div class="data_text">{{ datetime_string }}</div>
+            <div class="data_text lh_64">{{ datetime_string }}</div>
             <br><br>
 
             <input type="text" class="input_box" placeholder="Search with {{ search_engine_name }}!" onkeypress="search(this)">

@@ -2,9 +2,16 @@ import getpass
 from .SettingsManager import SettingsManager
 from .DatetimeManager import DatetimeManager
 from .WeatherManager import WeatherManager
+from .SettingsPresenceManager import SPM_File
 
 class Globals:
     def __init__(self):
+        self.settings_manager = None
+        self.datetime_manager = None
+        self.weather_manager = None
+        self.fetch()
+
+    def fetch(self):
         settings_filename = "settings.json"
         default_settings = {
             "name": getpass.getuser(),
@@ -13,10 +20,10 @@ class Globals:
                 "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s",
                 "StartPage": "https://www.startpage.com/do/dsearch?query=%s",
             },
-            "default_search_engine": "google"
+            "current_search_engine": "Google"
         }
 
-        self.settings_manager = SettingsManager(settings_filename, default_settings)
+        self.settings_manager = SettingsManager(settings_presence_manager=SPM_File(settings_filename, default_settings))
         self.datetime_manager = DatetimeManager()
         self.weather_manager = WeatherManager()
 

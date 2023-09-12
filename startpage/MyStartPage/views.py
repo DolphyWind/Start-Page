@@ -10,13 +10,14 @@ def save_settings(request):
     return HttpResponse(200, "Save Successfull!")
 
 def load_page(request):
+    globals.fetch()
     settings_manager = globals.settings_manager
     datetime_manager = globals.datetime_manager
     weather_manager = globals.weather_manager
 
     # Settings
     username = settings_manager["name"]
-    search_engine_name = settings_manager["default_search_engine"]
+    search_engine_name = settings_manager["current_search_engine"]
     search_url = settings_manager["search_engines"][search_engine_name]
 
     # Datetime data

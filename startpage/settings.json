@@ -1,1 +1,1 @@
-{"name": "yunus", "default_search_engine": "google", "search_engines": {"google": "https://www.google.com/search?q=%s", "duckduckgo": "https://duckduckgo.com/?t=ffab&q=%s", "startpage": "https://www.startpage.com/do/dsearch?query=%s"}}
+{"name": "yunus", "search_engines": {"Google": "https://www.google.com/search?q=%s", "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s", "StartPage": "https://www.startpage.com/do/dsearch?query=%s"}, "current_search_engine": "Google"}
