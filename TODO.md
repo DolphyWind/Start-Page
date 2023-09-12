@@ -2,7 +2,6 @@
 
 - Split websites into categories (Social media, education etc.)
 - Ability to add websites and categories
-- USD and EUR in TRY
 - Settings page.
     + Ability to change name
     + Ability to change location

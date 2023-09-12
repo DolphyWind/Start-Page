@@ -14,6 +14,7 @@ def load_page(request):
     settings_manager = globals.settings_manager
     datetime_manager = globals.datetime_manager
     weather_manager = globals.weather_manager
+    currency_manager = globals.currency_manager
 
     # Settings
     username = settings_manager["name"]
@@ -30,6 +31,9 @@ def load_page(request):
     temperature = weather_manager.temperature
     weather_classname = weather_manager.weather_classname
 
+    # Currencies
+    currency_list = currency_manager.fetch_multiple_currencies(settings_manager["currencies"])
+
     # CONTEXT DATA SETUP
     context_data = dict()
     context_data['name'] = username
@@ -43,5 +47,7 @@ def load_page(request):
     context_data['day_night_classname'] = day_night_classname
     context_data['temperature'] = temperature
     context_data['weather_classname'] = weather_classname
+
+    context_data['currency_list'] = currency_list
 
     return render(request, 'mainpage.html', context_data)

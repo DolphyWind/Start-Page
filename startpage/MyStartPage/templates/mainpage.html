@@ -53,7 +53,11 @@
             <div class="title_text">Good {{ part_of_day }}, {{ name }}!</div>
             <br>
 
-            <div class="currency_text data_text">1$ = 999₺<br>1€ = 999₺</div>
+            <div class="currency_text data_text">
+                {% for currency_text in currency_list %}
+                    {{ currency_text }}<br>
+                {% endfor %}
+            </div>
 
             <div class="wu wu-64 wu-white {{ day_night_classname }} {{ weather_classname }}"></div>
             <div class="data_text lh_64">{{ temperature }} °C</div>
