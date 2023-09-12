@@ -20,7 +20,7 @@ class Globals:
                 "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s",
                 "StartPage": "https://www.startpage.com/do/dsearch?query=%s",
             },
-            "current_search_engine": "Google"
+            "current_search_engine": "Google",
         }
 
         self.settings_manager = SettingsManager(settings_presence_manager=SPM_File(settings_filename, default_settings))
