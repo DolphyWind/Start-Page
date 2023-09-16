@@ -26,7 +26,8 @@ class Globals:
             "currencies": [
                 {"USD": "TRY"},
                 {"EUR": "TRY"},
-            ]
+            ],
+            "categories": []
         }
 
         self.settings_manager = SettingsManager(settings_presence_manager=SPM_File(settings_filename, default_settings))

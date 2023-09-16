@@ -1,1 +1,116 @@
-{"name": "yunus", "search_engines": {"Google": "https://www.google.com/search?q=%s", "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s", "StartPage": "https://www.startpage.com/do/dsearch?query=%s"}, "current_search_engine": "Google"}
+{
+    "name": "yunus",
+    "search_engines": {
+        "Google": "https://www.google.com/search?q=%s",
+        "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s",
+        "StartPage": "https://www.startpage.com/do/dsearch?query=%s"
+    },
+    "current_search_engine": "Google",
+    "currencies": [
+        {
+            "USD": "TRY"
+        },
+        {
+            "EUR": "TRY"
+        }
+    ],
+    "categories": [
+        {
+            "name": "Social",
+            "content": [
+                {
+                    "name": "YouTube",
+                    "url": "https://www.youtube.com/"
+                },
+                {
+                    "name": "Instagram",
+                    "url": "https://www.instagram.com/"
+                },
+                {
+                    "name": "Reddit",
+                    "url": "https://www.reddit.com/"
+                },
+                {
+                    "name": "WhatsApp Web",
+                    "url": "https://web.whatsapp.com/"
+                }
+            ]
+        },
+        {
+            "name": "Programming",
+            "content": [
+                {
+                    "name": "GitHub",
+                    "url": "https://github.com/"
+                },
+                {
+                    "name": "StackOverflow",
+                    "url": "https://stackoverflow.com/"
+                },
+                {
+                    "name": "LeetCode",
+                    "url": "https://leetcode.com/"
+                }
+            ]
+        },
+        {
+            "name": "Linux",
+            "content": [
+                {
+                    "name": "Arch Wiki",
+                    "url": "https://wiki.archlinux.org/"
+                },
+                {
+                    "name": "Gentoo Wiki",
+                    "url": "https://wiki.gentoo.org/wiki/Main_Page"
+                },
+                {
+                    "name": "DistroWatch",
+                    "url": "https://distrowatch.com/"
+                }
+            ]
+        },
+        {
+            "name": "Tools",
+            "content": [
+                {
+                    "name": "ChatGPT",
+                    "url": "https://chat.openai.com/"
+                },
+                {
+                    "name": "Bard",
+                    "url": "https://bard.google.com/"
+                },
+                {
+                    "name": "ILovePdf",
+                    "url": "https://www.ilovepdf.com/"
+                },
+                {
+                    "name": "Remove Background",
+                    "url": "https://www.remove.bg/"
+                }
+            ]
+        },
+        {
+            "name": "Career",
+            "content": [
+                {
+                    "name": "GMail",
+                    "url": "https://mail.google.com"
+                },
+                {
+                    "name": "Trello",
+                    "url": "https://trello.com"
+                },
+                {
+                    "name": "LinkedIn",
+                    "url": "https://www.linkedin.com"
+                },
+                {
+                    "name": "Google Drive",
+                    "url": "https://drive.google.com"
+                }
+            ]
+        }
+    ]
+}

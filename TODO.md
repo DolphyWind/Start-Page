@@ -1,7 +1,5 @@
 # TODO
 
-- Split websites into categories (Social media, education etc.)
-- Ability to add websites and categories
 - Settings page.
     + Ability to change name
     + Ability to change location

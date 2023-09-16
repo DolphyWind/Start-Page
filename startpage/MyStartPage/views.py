@@ -49,5 +49,6 @@ def load_page(request):
     context_data['weather_classname'] = weather_classname
 
     context_data['currency_list'] = currency_list
+    context_data['categories'] = settings_manager["categories"]
 
     return render(request, 'mainpage.html', context_data)

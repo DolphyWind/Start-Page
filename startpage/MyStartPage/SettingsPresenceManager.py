@@ -27,6 +27,7 @@ class SPM_File(ISettingsPresenceManager):
 
     def __init__(self, filename: str, default_settings: dict):
         super().__init__(default_settings)
+
         self.__filename = filename
 
     def load_settings(self) -> dict:
@@ -44,7 +45,7 @@ class SPM_File(ISettingsPresenceManager):
                 settings[key] = self.default_settings[key]
 
         with open(self.filename, "w") as f:
-            json.dump(settings, f)
+            json.dump(settings, f, indent=4)
 
     @property
     def filename(self):

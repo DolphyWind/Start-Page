@@ -19,6 +19,12 @@
                 fetch('/save_settings/');
             }
 
+            function save_and_go(url){
+                fetch('/save_settings/').then(response => {
+                        window.location.href = url;
+                });
+            }
+
             function search(elem) {
                 if(event.key === 'Enter') {
                     let query = elem.value.trim().replace(" ", "+");
@@ -70,6 +76,20 @@
             <br><br>
 
             <input type="text" class="input_box" placeholder="Search with {{ search_engine_name }}!" onkeypress="search(this)">
+        </div>
+
+        <div class="contents_div">
+
+            {% for category in categories %}
+                <div class="hcentered content_box">
+                <div class="hcentered content_title">{{ category.name }}</div>
+                <div class="content_body">
+                    {% for content in category.content %}
+                        <a class="content_cell" href="{{ content.url }}">{{ content.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </body>
 </html>

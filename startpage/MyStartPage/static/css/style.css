@@ -7,6 +7,64 @@
     margin: 0;
 }
 
+.contents_div{
+    display: block;
+    min-height: 300px;
+    background: #22252E;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 10px 0px 20px 10px;
+}
+
+.content_box{
+    display: inline-block;
+    float: left;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px #4e5254 solid;
+    min-height: 300px;
+    background: #262A33;
+    margin-right: 10px;
+}
+
+.content_title{
+    display: grid;
+    place-items: center;
+    width: 100%;
+    border-radius: 5px 5px 0px 0px;
+    height: 50px;
+    color: #F5F5F5;
+    font-family: "Helvetica";
+    font-weight: bold;
+    font-size: 24px;
+    border: 1px #4e5254 solid;
+    background: #ac0000;
+    overflow: hidden;
+}
+
+.content_body{
+    width: 100%;
+    min-height: calc(100% - 50px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.content_cell{
+    display: grid;
+    place-items: center;
+    width: 100%;
+    border-top: 1px solid #4e5254;
+    border-bottom: 1px solid #4e5254;
+    min-height: 40px;
+    color: #F5F5F5;
+    font-family: "Helvetica";
+    font-size: 18px;
+    background: #22252E;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+}
+
 .hcentered{
     text-align: center;
 }
