@@ -52,3 +52,6 @@ def load_page(request):
     context_data['categories'] = settings_manager["categories"]
 
     return render(request, 'mainpage.html', context_data)
+
+def settings(request):
+    return render(request, "settings.html")

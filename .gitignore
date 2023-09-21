@@ -129,3 +129,5 @@ dmypy.json
 
 # Idea folder
 .idea/
+
+settings.json

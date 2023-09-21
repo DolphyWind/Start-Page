@@ -67,3 +67,27 @@
 .clock-white-32{
     background: url(icons/clock/clock-white-32.png), linear-gradient(transparent, transparent);
 }
+
+.settings-black-64{
+    background: url(icons/settings/settings-black-64.png), linear-gradient(transparent, transparent);
+}
+
+.settings-black-48{
+    background: url(icons/settings/settings-black-48.png), linear-gradient(transparent, transparent);
+}
+
+.settings-black-32{
+    background: url(icons/settings/settings-black-32.png), linear-gradient(transparent, transparent);
+}
+
+.settings-white-64{
+    background: url(icons/settings/settings-white-64.png), linear-gradient(transparent, transparent);
+}
+
+.settings-white-48{
+    background: url(icons/settings/settings-white-48.png), linear-gradient(transparent, transparent);
+}
+
+.settings-white-32{
+    background: url(icons/settings/settings-white-32.png), linear-gradient(transparent, transparent);
+}

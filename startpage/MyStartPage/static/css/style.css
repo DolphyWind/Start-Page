@@ -95,6 +95,18 @@
     font-weight: bold;
 }
 
+.settings_button{
+    display: grid;
+    place-items: center;
+    position: absolute;
+    width:  60px;
+    height: 60px;
+    top: 25px;
+    right: 25px;
+    border-radius: 10px;
+    background: #0c03ad;
+}
+
 .lh_64{
     line-height: 64px;
 }

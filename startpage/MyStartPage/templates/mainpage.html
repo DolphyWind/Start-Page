@@ -64,6 +64,9 @@
                     {{ currency_text }}<br>
                 {% endfor %}
             </div>
+            <div class="settings_button">
+                <a href="{% url 'settings' %}" class="box48 settings-white-48"></a>
+            </div>
 
             <div class="wu wu-64 wu-white {{ day_night_classname }} {{ weather_classname }}"></div>
             <div class="data_text lh_64">{{ temperature }} °C</div>

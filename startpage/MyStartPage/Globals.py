@@ -4,6 +4,7 @@ from .DatetimeManager import DatetimeManager
 from .WeatherManager import WeatherManager
 from .SettingsPresenceManager import SPM_File
 from .CurrencyManager import CurrencyManager
+import geocoder
 
 class Globals:
     def __init__(self):
@@ -15,8 +16,12 @@ class Globals:
 
     def fetch(self):
         settings_filename = "settings.json"
+        latitude, longtitude = geocoder.ip("me").latlng
+
         default_settings = {
             "name": getpass.getuser(),
+            "latitude": latitude,
+            "longtitude": longtitude,
             "search_engines": {
                 "Google": "https://www.google.com/search?q=%s",
                 "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s",
@@ -32,7 +37,7 @@ class Globals:
 
         self.settings_manager = SettingsManager(settings_presence_manager=SPM_File(settings_filename, default_settings))
         self.datetime_manager = DatetimeManager()
-        self.weather_manager = WeatherManager()
+        self.weather_manager = WeatherManager(self.settings_manager.get_setting("latitude"), self.settings_manager.get_setting("longtitude"))
         self.currency_manager = CurrencyManager()
 
 

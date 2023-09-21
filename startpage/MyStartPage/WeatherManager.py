@@ -3,9 +3,8 @@ import requests
 
 class WeatherManager:
 
-    def __init__(self):
-        coordinates = geocoder.ip("me")
-        self.latitude, self.longtitude = coordinates.latlng
+    def __init__(self, latitude=None, longtitude=None):
+        self.latitude, self.longtitude = latitude, longtitude
 
         self.weather_api_url: str = f"https://api.open-meteo.com/v1/forecast?latitude={self.latitude}&longitude={self.longtitude}&current_weather=true"
 
