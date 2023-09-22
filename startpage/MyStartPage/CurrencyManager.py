@@ -25,6 +25,9 @@ class CurrencyManager:
         except:
             return ""
 
+        if not str(req.status_code).startswith('2'):
+            return ""
+
         data = req.json()
         if not data["success"]:
             return ""

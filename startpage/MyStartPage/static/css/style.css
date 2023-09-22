@@ -7,6 +7,10 @@
     margin: 0;
 }
 
+.dark_body{
+    background-color: #262A33;
+}
+
 .contents_div{
     display: block;
     min-height: 300px;
@@ -129,6 +133,41 @@
     font-size: 24px;
 }
 
-input:focus{
-    outline-width: none;
+.form_row{
+    display: flex;
+    flex-direction: row;
+}
+
+.settings_label{
+    display: grid;
+    align-content: center;
+    color: white;
+}
+
+.settings_input_box_small{
+    align-self: center;
+    width: 200px;
+    height: 30px;
+}
+
+.settings_input_box_big{
+    align-self: center;
+    width: 500px;
+    height: 30px;
+}
+
+.settings_plusminus{
+    display: flex;
+    justify-content: center;
+    width: 30;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.search_engines_div{
+    padding-left: 20px;
+}
+
+.settings_body{
+    padding-left: 20px;
 }

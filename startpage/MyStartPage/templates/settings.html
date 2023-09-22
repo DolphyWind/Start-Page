@@ -1,10 +1,131 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script>
+        function selectItem(item){
+            var search_engine_dropdown = document.getElementById("search_engine_dropdown");
+            search_engine_dropdown.innerHTML = item.innerHTML;
+        }
+
+        function getElementByPlaceholderText(item, placeholderText) {
+          const elements = item.querySelectorAll("*");
+
+          for (const element of elements) {
+            if (element.placeholder === placeholderText) {
+              return element;
+            }
+          }
+
+          return null;
+        }
+
+
+        function removeSearchEngine(item){
+            var nameLabel = getElementByPlaceholderText(item.parentNode, "Name");
+            var name = nameLabel.value;
+
+            var choiceElement = document.getElementById("search-engine-choice-${name}".replaceAll("${name}", name));
+            var search_engine_dropdown = document.getElementById("search_engine_dropdown");
+            if(search_engine_dropdown.innerHTML === choiceElement.innerHTML){
+                search_engine_dropdown.innerHTML = "&lt;unspecified&gt;";
+            }
+
+            choiceElement.remove();
+            item.parentNode.parentNode.remove();
+        }
+
+        function isValidId(str) {
+          // Create a regular expression to match valid IDs.
+          const regex = /^[a-zA-Z][a-zA-Z0-9_:\-]*$/;
+
+          // Return true if the string matches the regular expression, false otherwise.
+          return regex.test(str);
+        }
+
+        function addSearchEngine(item){
+            var nameInput = document.getElementById("add_search_engine_name");
+            var urlInput = document.getElementById("add_search_engine_url");
+
+            var name = nameInput.value.trim();
+            var url = urlInput.value.trim();
+
+            if(!name || !url){
+                return;
+            }
+
+            if(!isValidId(name)){
+                return;
+            }
+
+            var search_engines_list = document.getElementById("search_engines");
+            const templateStr = '<div><div class="form_row"><label class="settings_label">Name</label>&nbsp;&nbsp;<input type="text" class="form-control settings_input_box_small" placeholder="Name" value="${name}" readonly><label class="settings_label mx-2">Url</label><input type="text" class="form-control settings_input_box_big" placeholder="Url" value="${url}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);">X</button><br></div><br></div>';
+            search_engines_list.innerHTML += templateStr.replaceAll("${name}", name).replaceAll("${url}", url);
+
+            var search_engine_dropdown = document.getElementById("search-engine-dropdown");
+            const templateChoiceStr = '<a class="dropdown-item" href="#" data-value="${name}" onclick="selectItem(this);" id="search-engine-choice-${name}">${name}</a>';
+            search_engine_dropdown.innerHTML += templateChoiceStr.replaceAll("${name}", name);
+
+            nameInput.value = "";
+            urlInput.value = "";
+        }
+
+    </script>
 </head>
-<body>
+<body class="dark_body settings_body">
+
+    <div class="form_row">
+        <label class="settings_label">Name</label>&nbsp;&nbsp;
+        <input type="text" class="form-control settings_input_box_small" id="nameOption" placeholder="Enter your name" value="{{ name }}">
+    </div><br>
+
+    <h1 class="settings_label">Search Engines</h1>
+    <div class="search_engines_div">
+        <div id="search_engines">
+            {% for engine_name, url in search_engines.items %}
+                <div>
+                    <div class="form_row">
+                        <label class="settings_label">Name</label>&nbsp;&nbsp;
+                        <input type="text" class="form-control settings_input_box_small" placeholder="Name" value="{{ engine_name }}" id="search-engine-name-{{ engine_name }}" readonly>
+                        <label class="settings_label mx-2">Url</label>
+                        <input type="text" class="form-control settings_input_box_big" placeholder="Url" value="{{ url }}" id="search-engine-url-{{ engine_name }}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);">X</button>
+                    </div><br>
+                </div>
+            {% endfor %}
+        </div><br>
+
+        <h4 class="settings_label">Add A Search Engine&nbsp;&nbsp;</h4>
+        <div class="form_row">
+            <label class="settings_label">Name</label>&nbsp;&nbsp;
+            <input type="text" class="form-control settings_input_box_small" placeholder="Name" id="add_search_engine_name">
+            <label class="settings_label mx-2">Url</label>
+            <input type="text" class="form-control settings_input_box_big" placeholder="Url. Put %s for the query" id="add_search_engine_url">&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-primary settings_plusminus" onclick="addSearchEngine(this);">＋</button>
+        </div><br>
+
+        <div class="form_row">
+            <h4 class="settings_label">Current Search Engine</h4>&nbsp;&nbsp;
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" id="search_engine_dropdown">{{ search_engine_name }}</button>
+                <div class="dropdown-menu" id="search-engine-dropdown">
+                    {% for engine_name, url in search_engines.items %}
+                        <a class="dropdown-item" href="#" data-value="{{ engine_name }}" onclick="selectItem(this);" id="search-engine-choice-{{ engine_name }}">{{ engine_name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
