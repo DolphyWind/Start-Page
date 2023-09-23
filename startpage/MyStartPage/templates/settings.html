@@ -30,7 +30,6 @@
           return null;
         }
 
-
         function removeSearchEngine(item){
             var nameLabel = getElementByPlaceholderText(item.parentNode, "Name");
             var name = nameLabel.value;
@@ -42,7 +41,7 @@
             }
 
             choiceElement.remove();
-            item.parentNode.parentNode.remove();
+            item.parentNode.remove();
         }
 
         function isValidId(str) {
@@ -68,8 +67,15 @@
                 return;
             }
 
+            // Replace it if exists
+            var alreadyExistingItem = document.getElementById("search-engine-url-${name}".replaceAll("${name}", name))
+            if(alreadyExistingItem !== null){
+                alreadyExistingItem.value = url;
+                return;
+            }
+
             var search_engines_list = document.getElementById("search_engines");
-            const templateStr = '<div><div class="form_row"><label class="settings_label">Name</label>&nbsp;&nbsp;<input type="text" class="form-control settings_input_box_small" placeholder="Name" value="${name}" readonly><label class="settings_label mx-2">Url</label><input type="text" class="form-control settings_input_box_big" placeholder="Url" value="${url}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);">X</button><br></div><br></div>';
+            const templateStr = '<div class="form_row"><label class="settings_label">Name</label>&nbsp;&nbsp;<input type="text" class="form-control settings_input_box_small" placeholder="Name" value="${name}" readonly><label class="settings_label mx-2">Url</label><input type="text" class="form-control settings_input_box_big" placeholder="Url" value="${url}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);">X</button></div>';
             search_engines_list.innerHTML += templateStr.replaceAll("${name}", name).replaceAll("${url}", url);
 
             var search_engine_dropdown = document.getElementById("search-engine-dropdown");
@@ -78,6 +84,30 @@
 
             nameInput.value = "";
             urlInput.value = "";
+        }
+
+        function removeCurrency(item){
+            item.parentNode.remove();
+        }
+
+        function addCurrency(item){
+            var addCurrencyBaseInput = document.getElementById("add-currency-base");
+            var addCurrencyTargetInput = document.getElementById("add-currency-target");
+
+            var baseStr = addCurrencyBaseInput.value.trim().toUpperCase();
+            var targetStr = addCurrencyTargetInput.value.trim().toUpperCase();
+
+            if(!baseStr || !targetStr){
+                return;
+            }
+
+            addCurrencyBaseInput.value = "";
+            addCurrencyTargetInput.value = "";
+
+            var currencyList = document.getElementById("currency-list");
+            const templateStr = '<div class="form_row"><label class="settings_label">Base</label>&nbsp;&nbsp;<input type="text" class="form-control settings_input_box_small" placeholder="Base Currency" value="${base}" readonly><label class="settings_label mx-2">Target</label><input type="text" class="form-control settings_input_box_small" placeholder="Target Currency" value="${target}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger settings_plusminus" onclick="removeCurrency(this);">X</button></div>';
+
+            currencyList.innerHTML += templateStr.replaceAll("${base}", baseStr).replaceAll("${target}", targetStr);
         }
 
     </script>
@@ -89,18 +119,16 @@
         <input type="text" class="form-control settings_input_box_small" id="nameOption" placeholder="Enter your name" value="{{ name }}">
     </div><br>
 
-    <h1 class="settings_label">Search Engines</h1>
+    <h1 class="settings_label big_title">Search Engines</h1>
     <div class="search_engines_div">
         <div id="search_engines">
             {% for engine_name, url in search_engines.items %}
-                <div>
-                    <div class="form_row">
-                        <label class="settings_label">Name</label>&nbsp;&nbsp;
-                        <input type="text" class="form-control settings_input_box_small" placeholder="Name" value="{{ engine_name }}" id="search-engine-name-{{ engine_name }}" readonly>
-                        <label class="settings_label mx-2">Url</label>
-                        <input type="text" class="form-control settings_input_box_big" placeholder="Url" value="{{ url }}" id="search-engine-url-{{ engine_name }}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);">X</button>
-                    </div><br>
+                <div class="form_row">
+                    <label class="settings_label">Name</label>&nbsp;&nbsp;
+                    <input type="text" class="form-control settings_input_box_small" placeholder="Name" value="{{ engine_name }}" id="search-engine-name-{{ engine_name }}" readonly>
+                    <label class="settings_label mx-2">Url</label>
+                    <input type="text" class="form-control settings_input_box_big" placeholder="Url" value="{{ url }}" id="search-engine-url-{{ engine_name }}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);">X</button>
                 </div>
             {% endfor %}
         </div><br>
@@ -125,6 +153,32 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <h1 class="settings_label big_title">Currency Conversions</h1>
+    <div class="currencies_div">
+        <div id="currency-list">
+            {% for currency in currencies %}
+                {% for base, target in currency.items %}
+                    <div class="form_row">
+                        <label class="settings_label">Base</label>&nbsp;&nbsp;
+                        <input type="text" class="form-control settings_input_box_small" placeholder="Base Currency" value="{{base}}" readonly>
+                        <label class="settings_label mx-2">Target</label>
+                        <input type="text" class="form-control settings_input_box_small" placeholder="Target Currency" value="{{target}}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-danger settings_plusminus" onclick="removeCurrency(this);">X</button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div><br>
+        <h4 class="settings_label">Add A Currency Conversion</h4>
+        <div class="form_row">
+            <label class="settings_label">Base</label>&nbsp;&nbsp;
+            <input type="text" class="form-control settings_input_box_small" placeholder="Base" id="add-currency-base">
+            <label class="settings_label mx-2">Target</label>
+            <input type="text" class="form-control settings_input_box_small" placeholder="Target" id="add-currency-target">&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-primary settings_plusminus" onclick="addCurrency(this);">＋</button>
+        </div><br>
+
     </div>
 
 </body>

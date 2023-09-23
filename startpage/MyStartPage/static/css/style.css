@@ -136,6 +136,7 @@
 .form_row{
     display: flex;
     flex-direction: row;
+    padding: 3px;
 }
 
 .settings_label{
@@ -168,6 +169,14 @@
     padding-left: 20px;
 }
 
+.currencies_div{
+    padding-left: 20px;
+}
+
 .settings_body{
     padding-left: 20px;
+}
+
+.big_title{
+    color: #3498db;
 }

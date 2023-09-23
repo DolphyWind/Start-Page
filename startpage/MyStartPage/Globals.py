@@ -60,7 +60,8 @@ class Globals:
         weather_classname = self.weather_manager.weather_classname
 
         # Currencies
-        currency_list = self.currency_manager.fetch_multiple_currencies(self.settings_manager["currencies"])
+        currencies = self.settings_manager["currencies"]
+        currency_list = self.currency_manager.fetch_multiple_currencies(currencies)
 
         # Categories
         categories = self.settings_manager["categories"]
@@ -81,6 +82,7 @@ class Globals:
         context_data['temperature'] = temperature
         context_data['weather_classname'] = weather_classname
 
+        context_data['currencies'] = currencies
         context_data['currency_list'] = currency_list
         context_data['categories'] = categories
 
