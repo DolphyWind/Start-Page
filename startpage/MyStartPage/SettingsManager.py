@@ -41,6 +41,9 @@ class SettingsManager:
     def __setitem__(self, key, value):
         return self.set_setting(key, value)
 
+    def reset_settings(self) -> None:
+        self.__settings = self.__default_settings
+
     @property
     def settings(self) -> dict:
         return self.__settings

@@ -257,9 +257,22 @@
             fetch('/save_settings/', requestOptions)
                 .then(function (response) {
                     if (response.ok){
-                        window.location.href = "/";
+                        location.reload();
                     }
                 });
+        }
+
+        function resetSettings() {
+            if(window.confirm("Are you sure to reset your settings to default?")){
+                fetch("/reset_settings/")
+                .then(function () {
+                    location.reload();
+                });
+            }
+        }
+
+        function returnToStartPage() {
+            window.location.href = "/";
         }
 
     </script>
@@ -390,6 +403,8 @@
     </div><br><br><br>
 
     <button class="btn btn-primary" onclick="saveSettings();">Save Settings!</button>
+    <button class="btn btn-danger" onclick="resetSettings();">Reset Settings!</button>
+    <button class="btn btn-success" onclick="returnToStartPage();">Return to Start Page!</button>
 
     <script>
         // Initialize the map

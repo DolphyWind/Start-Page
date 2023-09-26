@@ -18,6 +18,13 @@ def save_settings(request):
         globals.settings_manager.save_settings()
         return HttpResponse(200, "Save Successfull!")
 
+@csrf_exempt
+def reset_settings(request):
+    print("reset")
+    globals.settings_manager.reset_settings()
+    globals.settings_manager.save_settings()
+    return HttpResponse(200)
+
 def load_page(request):
     globals.fetch()
     return render(request, 'mainpage.html', globals.get_context_data())

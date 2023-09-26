@@ -8,10 +8,10 @@ import geocoder
 
 class Globals:
     def __init__(self):
-        self.settings_manager = None
-        self.datetime_manager = None
-        self.weather_manager = None
-        self.currency_manager = None
+        self.settings_manager: SettingsManager = None
+        self.datetime_manager: DatetimeManager = None
+        self.weather_manager: WeatherManager = None
+        self.currency_manager: CurrencyManager = None
         self.fetch()
 
     def fetch(self):
@@ -24,14 +24,9 @@ class Globals:
             "longitude": longitude,
             "search_engines": {
                 "Google": "https://www.google.com/search?q=%s",
-                "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s",
-                "StartPage": "https://www.startpage.com/do/dsearch?query=%s",
             },
             "current_search_engine": "Google",
-            "currencies": [
-                {"USD": "TRY"},
-                {"EUR": "TRY"},
-            ],
+            "currencies": [],
             "categories": []
         }
 
