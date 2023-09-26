@@ -16,12 +16,12 @@ class Globals:
 
     def fetch(self):
         settings_filename = "settings.json"
-        latitude, longtitude = geocoder.ip("me").latlng
+        latitude, longitude = geocoder.ip("me").latlng
 
         default_settings = {
             "name": getpass.getuser(),
             "latitude": latitude,
-            "longtitude": longtitude,
+            "longitude": longitude,
             "search_engines": {
                 "Google": "https://www.google.com/search?q=%s",
                 "DuckDuckGo": "https://duckduckgo.com/?t=ffab&q=%s",
@@ -37,17 +37,22 @@ class Globals:
 
         self.settings_manager = SettingsManager(settings_presence_manager=SPM_File(settings_filename, default_settings))
         self.datetime_manager = DatetimeManager()
-        self.weather_manager = WeatherManager(self.settings_manager.get_setting("latitude"), self.settings_manager.get_setting("longtitude"))
+        self.weather_manager = WeatherManager(self.settings_manager.get_setting("latitude"), self.settings_manager.get_setting("longitude"))
         self.currency_manager = CurrencyManager()
 
     def get_context_data(self):
         # Settings
         username = self.settings_manager["name"]
+        latitude = self.settings_manager["latitude"]
+        longitude = self.settings_manager["longitude"]
 
         # Search engine settings
         search_engines = self.settings_manager["search_engines"]
         search_engine_name = self.settings_manager["current_search_engine"]
-        search_url = search_engines[search_engine_name]
+
+        search_url = ''
+        if search_engine_name:
+            search_url = search_engines[search_engine_name]
 
         # Datetime data
         datetime_string = self.datetime_manager.datetime_string
@@ -70,6 +75,8 @@ class Globals:
 
         context_data = dict()
         context_data['name'] = username
+        context_data['latitude'] = latitude
+        context_data['longitude'] = longitude
         context_data['search_engines'] = search_engines
         context_data["search_engine_name"] = search_engine_name
         context_data['search_url'] = search_url
