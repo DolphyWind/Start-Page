@@ -1,4 +1,5 @@
 import requests
+import threading
 
 class CurrencyManager:
     def __init__(self):
@@ -45,17 +46,30 @@ class CurrencyManager:
         return f"1{base_currency} = {round(converted_currency, 2)}{target_currency}"
 
     def fetch_multiple_currencies(self, currencyList: list[dict[str, str]]) -> list[str]:
-        result: list[str] = []
+        result: list = []
+        for _ in currencyList:
+            result.append(None)
+        thread_list: list[threading.Thread] = []
 
-        for d in currencyList:
+        def fetch_currency_in_thread(base, target, index):
+            result[index] = self.fetch_currency(base, target)
+
+        for idx, d in enumerate(currencyList):
             base_curr = list(d.keys())[0]
             target_curr = d[base_curr]
+            
+            thread_list.append(threading.Thread(target=fetch_currency_in_thread, args=(base_curr, target_curr, idx)))
+            thread_list[-1].start()
 
-            current_str = self.fetch_currency(base_curr, target_curr)
-            if current_str:
-                result.append(current_str)
+        for t in thread_list:
+            t.join()
 
-        return result
+        clean_result = []
+        for r in result:
+            if r:
+                clean_result.append(r)
+
+        return clean_result
 
 
 if __name__ == "__main__":
