@@ -28,6 +28,7 @@
             function search(elem) {
                 if(event.key === 'Enter') {
                     let query = elem.value.trim().replace(" ", "+");
+                    query = encodeURIComponent(query);
                     if(query === '') return;
                     let url = "{{ search_url }}".replaceAll("%s", query);
 
@@ -88,7 +89,7 @@
         <div class="contents_div">
 
             {% for category in categories %}
-                <div class="hcentered content_box">
+            <div class="hcentered content_box">
                 <div class="hcentered content_title">{{ category.name }}</div>
                 <div class="content_body">
                     {% for content in category.content %}

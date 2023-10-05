@@ -1,9 +1,19 @@
 import requests
 import threading
+import datetime
+from dataclasses import dataclass
+
+@dataclass
+class CurrencyData:
+    target: str
+    rate: int
+    last_updated_day: int
 
 class CurrencyManager:
+    currency_dict: dict[str, CurrencyData]  = {}
+
     def __init__(self):
-        self.api_url: str = "https://api.exchangerate.host/latest?base={}"
+        self.api_url: str = "https://open.er-api.com/v6/latest/{}"
         self.currency_icons = {
             "TRY": "₺",
             "USD": "$",
@@ -11,7 +21,6 @@ class CurrencyManager:
             "INR": "₹",
             "GBP": "£",
         }
-
     def get_currency_icon(self, currency_name: str) -> str:
         """Returns the icon of the currency. Returns the currency itself if it has no icon"""
         if currency_name not in self.currency_icons.keys():
@@ -20,20 +29,26 @@ class CurrencyManager:
         return self.currency_icons[currency_name]
 
     def fetch_currency(self, base_currency: str, target_currency: str) -> str:
-        full_url = self.api_url.format(base_currency)
-        try:
-            req = requests.get(full_url)
-        except:
-            return ""
+        converted_currency = None
+        current_day = datetime.datetime.now().day
 
-        if not str(req.status_code).startswith('2'):
-            return ""
+        if base_currency in CurrencyManager.currency_dict.keys() and CurrencyManager.currency_dict[base_currency].last_updated_day == current_day and target_currency == CurrencyManager.currency_dict[base_currency].target:
+            converted_currency = CurrencyManager.currency_dict[base_currency].rate
+        else:
+            full_url = self.api_url.format(base_currency)
+            try:
+                req = requests.get(full_url)
+            except:
+                return ""
 
-        data = req.json()
-        if not data["success"]:
-            return ""
+            if not str(req.status_code).startswith('2'):
+                return ""
 
-        converted_currency = data['rates'][target_currency]
+            data = req.json()
+            CurrencyManager.currency_dict[base_currency] = CurrencyData(target=target_currency, rate=data['rates'][target_currency], last_updated_day=current_day)
+            if data["result"] != "success":
+                return ""
+            converted_currency = data['rates'][target_currency]
 
         base_currency = self.get_currency_icon(base_currency)
         target_currency = self.get_currency_icon(target_currency)

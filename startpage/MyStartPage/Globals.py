@@ -16,7 +16,13 @@ class Globals:
 
     def fetch(self):
         settings_filename = "settings.json"
-        latitude, longitude = geocoder.ip("me").latlng
+        latitude = 0
+        longitude = 0
+
+        try:
+            latitude, longitude = geocoder.ip("me").latlng
+        except:
+            pass
 
         default_settings = {
             "name": getpass.getuser(),
