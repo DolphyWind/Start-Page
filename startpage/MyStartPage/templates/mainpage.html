@@ -27,8 +27,9 @@
 
             function search(elem) {
                 if(event.key === 'Enter') {
-                    let query = elem.value.trim().replace(" ", "+");
+                    let query = elem.value.trim();
                     query = encodeURIComponent(query);
+                    query = query.replaceAll("%20", "+")
                     if(query === '') return;
                     let url = "{{ search_url }}".replaceAll("%s", query);
 
