@@ -93,9 +93,9 @@ function addSearchEngine(item){
         '<div class="form_row">' +
             '<label class="settings_label mx-2">Name</label>&nbsp;&nbsp;' +
             '<input type="text" class="form-control settings_input_box_small" placeholder="Name" value="${name}" id="search-engine-name-${idName}" readonly>' +
-            '<label class="settings_label mx-2">Url</label>' +
+            '<label class="settings_label mx-2">Url</label>&nbsp;&nbsp;' +
             '<input type="text" class="form-control settings_input_box_big" placeholder="Url" value="${url}" id="search-engine-url-${idName}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;' +
-            '<button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);">X</button>' +
+            '<button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);"><img src="../static/css/icons/ui/close.png" alt=""/></button>' +
         '</div>';
 
     search_engines_list.innerHTML += replaceMultiple(templateStr, {
@@ -150,9 +150,9 @@ function addCurrency(item){
         '<div class="form_row">' +
             '<label class="settings_label mx-2">Base</label>&nbsp;&nbsp;' +
             '<input type="text" class="form-control settings_input_box_small currency_base_class" placeholder="Base Currency" value="${base}" readonly>' +
-            '<label class="settings_label mx-2">Target</label>' +
+            '<label class="settings_label mx-2">Target</label>&nbsp;&nbsp;' +
             '<input type="text" class="form-control settings_input_box_small currency_target_class" placeholder="Target Currency" value="${target}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;' +
-            '<button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);">X</button>' +
+            '<button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>' +
         '</div>';
 
     currencyList.innerHTML += replaceMultiple(templateStr, {
@@ -182,7 +182,7 @@ function addWebsiteToCategory(item, category_name){
             '<input type="text" class="form-control settings_input_box_small content_website_name" placeholder="Name" value="${name}" readonly>' +
             '<label class="settings_label mx-2">Url</label>&nbsp;&nbsp;' +
             '<input type="text" class="form-control settings_input_box_big content_website_url" placeholder="Url" value="${url}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;' +
-            '<button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);">X</button>' +
+            '<button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>' +
         '</div>';
 
     websiteListItem.innerHTML += replaceMultiple(templateStr, {
@@ -209,9 +209,9 @@ function addCategory(item) {
             '<div class="form_row">' +
                 '<label class="settings_label mx-2">Name</label>&nbsp;&nbsp;' +
                 '<input type="text" class="form-control settings_input_box_small" placeholder="Name" id="${idName}-add-website-name">' +
-                '<label class="settings_label mx-2">Url</label>' +
+                '<label class="settings_label mx-2">Url</label>&nbsp;&nbsp;' +
                 '<input type="text" class="form-control settings_input_box_big" placeholder="Url" id="${idName}-add-website-url">&nbsp;&nbsp;&nbsp;&nbsp;' +
-                '<button class="btn btn-primary settings_plusminus" onclick="addWebsiteToCategory(this, \'${idName}\');">＋</button>' +
+                '<button class="btn btn-primary settings_plusminus" onclick="addWebsiteToCategory(this, \'${idName}\');"><img src="../static/css/icons/ui/plus.png"/></button>' +
             '</div>' +
             '<button class="btn btn-danger" onclick="removeParentGenerations(this, 1);">Delete This Category</button>' +
         '<br><br><br>';

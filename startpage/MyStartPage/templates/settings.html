@@ -44,9 +44,9 @@
                 <div class="form_row">
                     <label class="settings_label mx-2">Name</label>&nbsp;&nbsp;
                     <input type="text" class="form-control settings_input_box_small" placeholder="Name" value="{{ engine_name }}" id="search-engine-name-{{ engine_name|space_to_hyphen }}" readonly>
-                    <label class="settings_label mx-2">Url</label>
+                    <label class="settings_label mx-2">Url</label>&nbsp;&nbsp;
                     <input type="text" class="form-control settings_input_box_big" placeholder="Url" value="{{ url }}" id="search-engine-url-{{ engine_name|space_to_hyphen }}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);">X</button>
+                    <button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);"><img src="../static/css/icons/ui/close.png" alt=""/></button>
                 </div>
             {% endfor %}
         </div><br>
@@ -54,10 +54,10 @@
         <h4 class="settings_label">Add A Search Engine&nbsp;&nbsp;</h4>
         <div class="form_row">
             <label class="settings_label mx-2">Name</label>&nbsp;&nbsp;
-            <input type="text" class="form-control settings_input_box_small mx-2" placeholder="Name" id="add_search_engine_name">
-            <label class="settings_label mx-2">Url</label>
+            <input type="text" class="form-control settings_input_box_small" placeholder="Name" id="add_search_engine_name">
+            <label class="settings_label mx-2">Url</label>&nbsp;&nbsp;
             <input type="text" class="form-control settings_input_box_big" placeholder="Url. Put %s for the query" id="add_search_engine_url">&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-primary settings_plusminus" onclick="addSearchEngine(this);">＋</button>
+            <button class="btn btn-primary settings_plusminus" onclick="addSearchEngine(this);"><img src="../static/css/icons/ui/plus.png"/></button>
         </div><br>
 
         <div class="form_row">
@@ -82,9 +82,9 @@
                     <div class="form_row">
                         <label class="settings_label mx-2">Base</label>&nbsp;&nbsp;
                         <input type="text" class="form-control settings_input_box_small currency_base_class" placeholder="Base Currency" value="{{base}}" readonly>
-                        <label class="settings_label mx-2">Target</label>
+                        <label class="settings_label mx-2">Target</label>&nbsp;&nbsp;
                         <input type="text" class="form-control settings_input_box_small currency_target_class" placeholder="Target Currency" value="{{target}}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);">X</button>
+                        <button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>
                     </div>
                 {% endfor %}
             {% endfor %}
@@ -93,9 +93,9 @@
         <div class="form_row">
             <label class="settings_label mx-2">Base</label>&nbsp;&nbsp;
             <input type="text" class="form-control settings_input_box_small" placeholder="Base" id="add-currency-base">
-            <label class="settings_label mx-2">Target</label>
+            <label class="settings_label mx-2">Target</label>&nbsp;&nbsp;
             <input type="text" class="form-control settings_input_box_small" placeholder="Target" id="add-currency-target">&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-primary settings_plusminus" onclick="addCurrency(this);">＋</button>
+            <button class="btn btn-primary settings_plusminus" onclick="addCurrency(this);"><img src="../static/css/icons/ui/plus.png"/></button>
         </div><br>
     </div>
 
@@ -113,7 +113,7 @@
                                 <input type="text" class="form-control settings_input_box_small content_website_name" placeholder="Name" value="{{content.name}}" readonly>
                                 <label class="settings_label mx-2">Url</label>&nbsp;&nbsp;
                                 <input type="text" class="form-control settings_input_box_big content_website_url" placeholder="Url" value="{{content.url}}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);">X</button>
+                                <button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>
                             </div>
                         {% endfor %}
                     </div>
@@ -122,9 +122,9 @@
                     <div class="form_row">
                         <label class="settings_label mx-2">Name</label>&nbsp;&nbsp;
                         <input type="text" class="form-control settings_input_box_small" placeholder="Name" id="{{category.name|space_to_hyphen}}-add-website-name">
-                        <label class="settings_label mx-2">Url</label>
+                        <label class="settings_label mx-2">Url</label>&nbsp;&nbsp;
                         <input type="text" class="form-control settings_input_box_big" placeholder="Url" id="{{category.name|space_to_hyphen}}-add-website-url">&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-primary settings_plusminus" onclick="addWebsiteToCategory(this, '{{category.name|space_to_hyphen}}');">＋</button>
+                        <button class="btn btn-primary settings_plusminus" onclick="addWebsiteToCategory(this, '{{category.name|space_to_hyphen}}');"><img src="../static/css/icons/ui/plus.png"/></button>
                     </div>
                     <button class="btn btn-danger" onclick="removeParentGenerations(this, 1);">Delete This Category</button>
                     <br><br><br>
@@ -136,7 +136,7 @@
         <div class="form_row">
             <label class="settings_label mx-2">Name</label>&nbsp;&nbsp;
             <input type="text" class="form-control settings_input_box_small" placeholder="Name" id="add-category-name">
-            <button class="btn btn-primary settings_plusminus mx-2" onclick="addCategory(this);">＋</button>
+            <button class="btn btn-primary settings_plusminus mx-2" onclick="addCategory(this);"><img src="../static/css/icons/ui/plus.png"/></button>
         </div>
     </div><br><br><br>
 
