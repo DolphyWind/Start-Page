@@ -95,7 +95,9 @@ function addSearchEngine(item){
             '<input type="text" class="form-control settings_input_box_small" placeholder="Name" value="${name}" id="search-engine-name-${idName}" readonly>' +
             '<label class="settings_label mx-2">Url</label>&nbsp;&nbsp;' +
             '<input type="text" class="form-control settings_input_box_big" placeholder="Url" value="${url}" id="search-engine-url-${idName}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;' +
-            '<button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);"><img src="../static/css/icons/ui/close.png" alt=""/></button>' +
+            '<button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);"><img src="../static/css/icons/ui/close.png" alt=""/></button>&nbsp;' +
+            '<button class="btn btn-warning settings_plusminus" onclick="moveUp(this);"><img src="../static/css/icons/ui/up_arrow.png" alt=""/></button>&nbsp;' +
+            '<button class="btn btn-warning settings_plusminus" onclick="moveDown(this);"><img src="../static/css/icons/ui/down_arrow.png" alt=""/></button>&nbsp;' +
         '</div>';
 
     search_engines_list.innerHTML += replaceMultiple(templateStr, {
@@ -152,7 +154,9 @@ function addCurrency(item){
             '<input type="text" class="form-control settings_input_box_small currency_base_class" placeholder="Base Currency" value="${base}" readonly>' +
             '<label class="settings_label mx-2">Target</label>&nbsp;&nbsp;' +
             '<input type="text" class="form-control settings_input_box_small currency_target_class" placeholder="Target Currency" value="${target}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;' +
-            '<button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>' +
+            '<button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>&nbsp;' +
+            '<button class="btn btn-warning settings_plusminus" onclick="moveUp(this);"><img src="../static/css/icons/ui/up_arrow.png" alt=""/></button>&nbsp;' +
+            '<button class="btn btn-warning settings_plusminus" onclick="moveDown(this);"><img src="../static/css/icons/ui/down_arrow.png" alt=""/></button>&nbsp;' +
         '</div>';
 
     currencyList.innerHTML += replaceMultiple(templateStr, {
@@ -182,7 +186,9 @@ function addWebsiteToCategory(item, category_name){
             '<input type="text" class="form-control settings_input_box_small content_website_name" placeholder="Name" value="${name}" readonly>' +
             '<label class="settings_label mx-2">Url</label>&nbsp;&nbsp;' +
             '<input type="text" class="form-control settings_input_box_big content_website_url" placeholder="Url" value="${url}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;' +
-            '<button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>' +
+            '<button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>&nbsp;' +
+            '<button class="btn btn-warning settings_plusminus" onclick="moveUp(this);"><img src="../static/css/icons/ui/up_arrow.png" alt=""/></button>&nbsp;' +
+            '<button class="btn btn-warning settings_plusminus" onclick="moveDown(this);"><img src="../static/css/icons/ui/down_arrow.png" alt=""/></button>&nbsp;' +
         '</div>';
 
     websiteListItem.innerHTML += replaceMultiple(templateStr, {
@@ -214,7 +220,10 @@ function addCategory(item) {
                 '<button class="btn btn-primary settings_plusminus" onclick="addWebsiteToCategory(this, \'${idName}\');"><img src="../static/css/icons/ui/plus.png"/></button>' +
             '</div>' +
             '<button class="btn btn-danger" onclick="removeParentGenerations(this, 1);">Delete This Category</button>' +
-        '<br><br><br>';
+            '<button class="btn btn-warning" onclick="moveCategoryUp(this);">Move This Category Up</button>' +
+            '<button class="btn btn-warning" onclick="moveCategoryDown(this);">Move This Category Down</button>' +
+            '<br><br><br>' +
+        '</div>';
 
     let finalStr = replaceMultiple(templateStr, {
         "${name}": name,
@@ -319,4 +328,63 @@ function resetSettings() {
 
 function returnToStartPage() {
     window.location.href = "/";
+}
+
+function swap(node1, node2) {
+    const afterNode2 = node2.nextElementSibling;
+    const parent = node2.parentNode;
+    node1.replaceWith(node2);
+    parent.insertBefore(node1, afterNode2);
+}
+
+function moveUp(item) {
+    let parent = item.parentNode.parentNode;
+    let rows = parent.querySelectorAll('.form_row')
+    for(let i = 1; i < rows.length; ++i){
+        let currentNode = rows[i];
+        if(currentNode.isEqualNode(item.parentNode)){
+            let previousNode = rows[i - 1];
+            currentNode.parentNode.insertBefore(currentNode, previousNode);
+            break;
+        }
+    }
+}
+
+function moveDown(item) {
+    let parent = item.parentNode.parentNode;
+    let rows = parent.querySelectorAll('.form_row')
+    for(let i = 0; i < rows.length - 1; ++i){
+        let currentNode = rows[i];
+        if(currentNode.isEqualNode(item.parentNode)){
+            let nextNode = rows[i + 1];
+            nextNode.parentNode.insertBefore(nextNode, currentNode);
+            break;
+        }
+    }
+}
+
+function moveCategoryUp(item){
+    let parent = item.parentNode.parentNode;
+    let rows = parent.querySelectorAll('.category_row')
+    for(let i = 1; i < rows.length; ++i){
+        let currentNode = rows[i];
+        if(currentNode.isEqualNode(item.parentNode)){
+            let previousNode = rows[i - 1];
+            currentNode.parentNode.insertBefore(currentNode, previousNode);
+            break;
+        }
+    }
+}
+
+function moveCategoryDown(item) {
+    let parent = item.parentNode.parentNode;
+    let rows = parent.querySelectorAll('.category_row')
+    for(let i = 0; i < rows.length - 1; ++i){
+        let currentNode = rows[i];
+        if(currentNode.isEqualNode(item.parentNode)){
+            let nextNode = rows[i + 1];
+            nextNode.parentNode.insertBefore(nextNode, currentNode);
+            break;
+        }
+    }
 }

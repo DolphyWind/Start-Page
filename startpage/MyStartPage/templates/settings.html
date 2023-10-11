@@ -46,7 +46,9 @@
                     <input type="text" class="form-control settings_input_box_small" placeholder="Name" value="{{ engine_name }}" id="search-engine-name-{{ engine_name|space_to_hyphen }}" readonly>
                     <label class="settings_label mx-2">Url</label>&nbsp;&nbsp;
                     <input type="text" class="form-control settings_input_box_big" placeholder="Url" value="{{ url }}" id="search-engine-url-{{ engine_name|space_to_hyphen }}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);"><img src="../static/css/icons/ui/close.png" alt=""/></button>
+                    <button class="btn btn-danger settings_plusminus" onclick="removeSearchEngine(this);"><img src="../static/css/icons/ui/close.png" alt=""/></button>&nbsp;
+                    <button class="btn btn-warning settings_plusminus" onclick="moveUp(this);"><img src="../static/css/icons/ui/up_arrow.png" alt=""/></button>&nbsp;
+                    <button class="btn btn-warning settings_plusminus" onclick="moveDown(this);"><img src="../static/css/icons/ui/down_arrow.png" alt=""/></button>&nbsp;
                 </div>
             {% endfor %}
         </div><br>
@@ -84,7 +86,9 @@
                         <input type="text" class="form-control settings_input_box_small currency_base_class" placeholder="Base Currency" value="{{base}}" readonly>
                         <label class="settings_label mx-2">Target</label>&nbsp;&nbsp;
                         <input type="text" class="form-control settings_input_box_small currency_target_class" placeholder="Target Currency" value="{{target}}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>
+                        <button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>&nbsp;
+                        <button class="btn btn-warning settings_plusminus" onclick="moveUp(this);"><img src="../static/css/icons/ui/up_arrow.png" alt=""/></button>&nbsp;
+                        <button class="btn btn-warning settings_plusminus" onclick="moveDown(this);"><img src="../static/css/icons/ui/down_arrow.png" alt=""/></button>&nbsp;
                     </div>
                 {% endfor %}
             {% endfor %}
@@ -113,7 +117,9 @@
                                 <input type="text" class="form-control settings_input_box_small content_website_name" placeholder="Name" value="{{content.name}}" readonly>
                                 <label class="settings_label mx-2">Url</label>&nbsp;&nbsp;
                                 <input type="text" class="form-control settings_input_box_big content_website_url" placeholder="Url" value="{{content.url}}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>
+                                <button class="btn btn-danger settings_plusminus" onclick="removeParentGenerations(this, 1);"><img src="../static/css/icons/ui/close.png" alt=""/></button>&nbsp;
+                                <button class="btn btn-warning settings_plusminus" onclick="moveUp(this);"><img src="../static/css/icons/ui/up_arrow.png" alt=""/></button>&nbsp;
+                                <button class="btn btn-warning settings_plusminus" onclick="moveDown(this);"><img src="../static/css/icons/ui/down_arrow.png" alt=""/></button>&nbsp;
                             </div>
                         {% endfor %}
                     </div>
@@ -127,6 +133,8 @@
                         <button class="btn btn-primary settings_plusminus" onclick="addWebsiteToCategory(this, '{{category.name|space_to_hyphen}}');"><img src="../static/css/icons/ui/plus.png"/></button>
                     </div>
                     <button class="btn btn-danger" onclick="removeParentGenerations(this, 1);">Delete This Category</button>
+                    <button class="btn btn-warning" onclick="moveCategoryUp(this);">Move This Category Up</button>
+                    <button class="btn btn-warning" onclick="moveCategoryDown(this);">Move This Category Down</button>
                     <br><br><br>
                 </div>
             {% endfor %}
