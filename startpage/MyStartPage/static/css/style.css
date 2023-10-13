@@ -189,3 +189,10 @@
 .settings_content_title{
     color: green;
 }
+
+.settings_bg{
+    border-radius: 10px;
+    background: #22252E;
+    width: fit-content;
+    padding: 15px;
+}
