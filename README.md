@@ -1,7 +1,8 @@
 # Start-Page
-My Custom Start Page With Django
-
-⚙️ Currently in development
+My Custom Start Page With Django.  
+Run it with;  
+`python3 manage.py runserver <ip_address>`  
+And make sure you make your homepage to that IP address.
 
 # Attributions
 [Calendar icon](https://www.flaticon.com/free-icon/calendar_747310?term=date&page=1&position=6&origin=tag&related_id=747310)  
